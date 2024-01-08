@@ -5,7 +5,7 @@ import mongoClientPromise from '@/app/lib/mongodb';
 export async function POST(req: Request) {
   const client = await mongoClientPromise;
   const dbName = "docs";
-  const collectionName = "embeddings";
+  const collectionName = "embeddingsHounder";
   const collection = client.db(dbName).collection(collectionName);
   
   const question = await req.text();
@@ -24,8 +24,8 @@ export async function POST(req: Request) {
   const retriever = vectorStore.asRetriever({
     searchType: "mmr",
     searchKwargs: {
-      fetchK: 20,
-      lambda: 0.1,
+      fetchK: 100,
+      lambda: 0.8, // Increase this value for more diverse results
     },
   });
   

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     body: currentMessageContent,
   }).then((res) => res.json());
 
-  const TEMPLATE = `You are a very enthusiastic freeCodeCamp.org representative who loves to help people! Given the following sections from the freeCodeCamp.org contributor documentation, answer the question using only that information, outputted in markdown format. If you are unsure and the answer is not explicitly written in the documentation, say "Sorry, I don't know how to help with that."
+  const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the question using only that information, outputted in PDF. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that."
   
   Context sections:
   ${JSON.stringify(vectorSearch)}

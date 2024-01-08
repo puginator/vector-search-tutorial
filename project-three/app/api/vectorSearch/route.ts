@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     searchType: "mmr",
     searchKwargs: {
       fetchK: 100,
-      lambda: 0.8, // Increase this value for more diverse results
+      lambda: 0.5, // Increase this value for more diverse results
     },
   });
   

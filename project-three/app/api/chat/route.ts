@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     },
     body: currentMessageContent,
   }).then((res) => res.json());
-  console.log(JSON.stringify(vectorSearch.map((v: any) => v.pageContent.trim())));
+  //console.log(JSON.stringify(vectorSearch.map((v: any) => v.pageContent.trim())));
 
   const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
   
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       (messages as Message[]).map(m =>
         m.role == 'user'
           ? new HumanMessage(m.content)
-          : new AIMessage(m.content.trim()),
+          : new AIMessage(m.content),
       ),
       {},
       [handlers],

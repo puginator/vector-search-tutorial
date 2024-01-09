@@ -10,9 +10,9 @@ export default function Chat() {
     <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
       {messages.length > 0
         ? messages.map((m) => (
-            <div key={m.id} className="whitespace-pre-wrap">
-              {m.role === "user" ? "User: " : "AI: "}
-              <ReactMarkdown>{m.content}</ReactMarkdown>
+            <div key={m.id} className={`whitespace-pre-wrap py-5 ${m.role === "user" ? "text-blue-500" : "text-gray-500"}`}>
+              {m.role === "user" ? "User: " : "Hounder: "}
+              <ReactMarkdown>{m.content.trim()}</ReactMarkdown>
             </div>
           ))
         : null}

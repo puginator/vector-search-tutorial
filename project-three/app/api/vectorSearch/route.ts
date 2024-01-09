@@ -7,19 +7,21 @@ export async function POST(req: Request) {
   const dbName = "docs";
   const collectionName = "embeddingsHounder";
   const collection = client.db(dbName).collection(collectionName);
-  
+
   const question = await req.text();
 
   const vectorStore = new MongoDBAtlasVectorSearch(
     new OpenAIEmbeddings({
-      modelName: 'text-embedding-ada-002',
+      modelName: "text-embedding-ada-002",
       stripNewLines: true,
-    }), {
-    collection,
-    indexName: "default",
-    textKey: "text", 
-    embeddingKey: "embedding",
-  });
+    }),
+    {
+      collection,
+      indexName: "default",
+      textKey: "text",
+      embeddingKey: "embedding",
+    }
+  );
 
   const retriever = vectorStore.asRetriever({
     searchType: "mmr",
@@ -28,8 +30,12 @@ export async function POST(req: Request) {
       lambda: 0.5, // Increase this value for more diverse results
     },
   });
-  
+
   const retrieverOutput = await retriever.getRelevantDocuments(question);
 
-  return Response.json(retrieverOutput as any);
+  // Return a response with JSON data
+  return new Response(JSON.stringify(retrieverOutput), {
+    headers: {"Content-Type": "application/json"},
+    status: 200, // or appropriate HTTP status code
+  });
 }

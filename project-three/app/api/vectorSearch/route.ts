@@ -31,7 +31,5 @@ export async function POST(req: Request) {
   
   const retrieverOutput = await retriever.getRelevantDocuments(question);
 
-  const json = JSON.stringify(retrieverOutput);
-
-  return Response.json(json);
+  return Response.json(retrieverOutput as any);
 }

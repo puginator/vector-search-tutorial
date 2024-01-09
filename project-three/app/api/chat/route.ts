@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
   
   Context sections:
-  ${JSON.stringify(vectorSearch.map((v: any) => v.pageContent.trim()))}
+  ${JSON.stringify(vectorSearch)}
 
   Question: """
   ${currentMessageContent}

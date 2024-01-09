@@ -8,7 +8,9 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
   const currentMessageContent = messages[messages.length - 1].content;
 
-  const vectorSearch = await fetch("http://localhost:3000/api/vectorSearch", {
+  const apiUrl = process.env.REACT_API_URL || 'http://localhost:3000';
+
+  const vectorSearch = await fetch(`${apiUrl}/api/vectorSearch`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

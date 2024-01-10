@@ -2,7 +2,7 @@ import { StreamingTextResponse, LangChainStream, Message } from 'ai';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { AIMessage, HumanMessage } from 'langchain/schema';
 
-//export const runtime = 'edge';
+export const runtime = 'edge';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -19,14 +19,18 @@ export async function POST(req: Request) {
   })
   .then((res) => res.text()) // replace .json() with .text()
   .then((text) => {
-    console.log('text', text); // log the raw response body
-    return JSON.parse(text); // parse the JSON manually
+    //console.log('text', text); // log the raw response body
+    return text ; // parse the JSON manually
   });
-  const vectorSearchString = vectorSearch
+  const vectorSearchJson = JSON.parse(vectorSearch);
+
+  const vectorSearchString = vectorSearchJson
     .map((v: any) => v.pageContent)
     .join("\n\n")
     .replace(/\n/g, "");
-  //console.log('vector string', vectorSearchString);
+
+    
+  console.log('vector string', vectorSearchString);
 
   const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
   

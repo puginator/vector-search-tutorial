@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   const retriever = vectorStore.asRetriever({
     searchType: "mmr",
     searchKwargs: {
-      fetchK: 100, //number of documents to fetch
+      fetchK: 30, //number of documents to fetch
       lambda: 0.5, // Increase this value for more diverse results
     },
   });

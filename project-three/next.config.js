@@ -8,7 +8,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "frame-ancestors 'self' https://vector-search-tutorial.vercel.app/ https://vector-search-tutorial-l0i2l14uu-puginator.vercel.app/",
+              "frame-ancestors 'self' https://vector-search-tutorial.vercel.app/ https://vector-search-tutorial-puginator.vercel.app/",
           },
           {
             key: "X-XSS-Protection",

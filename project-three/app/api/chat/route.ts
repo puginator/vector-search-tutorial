@@ -9,17 +9,18 @@ export async function POST(req: Request) {
   const currentMessageContent = messages[messages.length - 1].content;
 
   const apiUrl = process.env.REACT_API_URL as string || 'http://localhost:3000';
+  //console.log('messages', messages);
 
   const vectorSearch = await fetch(`${apiUrl}/api/vectorSearch`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: currentMessageContent,
+    body: JSON.stringify(currentMessageContent),
   })
   .then((res) => res.text()) // Get the raw response body as a string
   .then((text) => {
-    console.log(text); // Log the raw response body
+    //console.log(text); // Log the raw response body
     return JSON.parse(text); // Parse the JSON manually
   });
  // const vectorSearchJson = JSON.parse(vectorSearch);

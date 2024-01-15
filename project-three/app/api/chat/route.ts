@@ -16,8 +16,13 @@ export async function POST(req: Request) {
       "Content-Type": "application/json",
     },
     body: currentMessageContent,
-  }).then((res) => res.json())
-  //const vectorSearchJson = JSON.parse(vectorSearch);
+  })
+  .then((res) => res.text()) // Get the raw response body as a string
+  .then((text) => {
+    console.log(text); // Log the raw response body
+    return JSON.parse(text); // Parse the JSON manually
+  });
+ // const vectorSearchJson = JSON.parse(vectorSearch);
 
   const vectorSearchString = vectorSearch
     .map((v: any) => v.pageContent)
@@ -25,7 +30,7 @@ export async function POST(req: Request) {
     .replace(/\n/g, " ");
 
 
-  console.log('vector string', vectorSearchString);
+  //console.log('vector string', vectorSearchString);
 
   const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
   

@@ -10,7 +10,8 @@ export async function POST(req: Request) {
     const collection = client.db(dbName).collection(collectionName);
 
     const question = await req.text();
-
+    console.log('question', question)
+    console.log('collection', collection)
     const vectorStore = new MongoDBAtlasVectorSearch(
       new OpenAIEmbeddings({
         modelName: "text-embedding-ada-002",

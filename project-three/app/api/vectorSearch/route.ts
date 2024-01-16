@@ -28,18 +28,19 @@ export async function POST(req: Request) {
     const retriever = vectorStore.asRetriever({
       searchType: "mmr",
       searchKwargs: {
-        fetchK: 50, //number of documents to fetch
-        lambda: 0.5, // Increase this value for more diverse results
+        fetchK: 20, //number of documents to fetch
+        lambda: 0.1, // Increase this value for more diverse results
       },
     });
 
     const retrieverOutput = await retriever.getRelevantDocuments(question);
 
     // Return a response with JSON data
-    return new Response(JSON.stringify(retrieverOutput), {
-      headers: {"Content-Type": "application/json"},
-      status: 200, // or appropriate HTTP status code
-    });
+    return Response.json(retrieverOutput)
+    // return new Response(JSON.stringify(retrieverOutput), {
+    //   headers: {"Content-Type": "application/json"},
+    //   status: 200, // or appropriate HTTP status code
+    // });
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({message: "Internal server error", error}), {

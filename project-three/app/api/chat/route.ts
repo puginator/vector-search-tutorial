@@ -11,18 +11,18 @@ export async function POST(req: Request) {
   const apiUrl = process.env.REACT_API_URL as string;
   //console.log('URL', apiUrl);
   try {
-    const response = await fetch(`${apiUrl}/api/vectorSearch`, {
+    const vectorSearch = await fetch(`${apiUrl}/api/vectorSearch`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(currentMessageContent),
-    })
-    const text = await response.text();
+      body: currentMessageContent,
+    }).then((res) => res.json());
+    //const text = await response.text();
 
     //try to parse the repsonse as JSON
-    const vectorSearch = JSON.parse(text);
-    console.log('vector search', vectorSearch);
+    //const vectorSearch = JSON.parse(text);
+    //console.log('vector search', vectorSearch);
     // .then((res) => res.text()) // Get the raw response body as a string
     // .then((text) => {
     //   //console.log(text); // Log the raw response body
@@ -30,17 +30,17 @@ export async function POST(req: Request) {
     // });
     // const vectorSearchJson = JSON.parse(vectorSearch);
   
-    // const vectorSearchString = vectorSearch
-    //   .map((v: any) => v.pageContent)
-    //   .join("\n\n")
-    //   .replace(/\n/g, " ");
+    const vectorSearchString = vectorSearch
+      .map((v: any) => v.pageContent)
+      .join("\n\n")
+      .replace(/\n/g, " ");
   
   
-    //console.log('vector string', vectorSearch[0].pageContent);
+    console.log('vector string', vectorSearchString);
     const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
     
     Context sections:
-    ${vectorSearch[0].pageContent}
+    ${vectorSearchString}
   
     Question: """
     ${currentMessageContent}

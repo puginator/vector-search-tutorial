@@ -2,7 +2,7 @@ import { StreamingTextResponse, LangChainStream, Message } from 'ai';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { AIMessage, HumanMessage } from 'langchain/schema';
 
-//export const runtime = 'edge';
+export const runtime = 'edge';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -13,9 +13,6 @@ export async function POST(req: Request) {
   try {
     const vectorSearch = await fetch(`${apiUrl}/api/vectorSearch`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: currentMessageContent,
     }).then((res) => res.json());
 
@@ -32,17 +29,17 @@ export async function POST(req: Request) {
     // });
     // const vectorSearchJson = JSON.parse(vectorSearch);
   
-    const vectorSearchString = vectorSearch
-      .map((v: any) => v.pageContent)
-      .join("\n\n")
-      .replace(/\n/g, " ");
+    // const vectorSearchString = vectorSearch
+    //   .map((v: any) => v.pageContent)
+    //   .join("\n\n")
+    //   .replace(/\n/g, " ");
   
   
-    console.log('vector string', vectorSearchString);
+    // console.log('vector string', vectorSearchString);
     const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
     
     Context sections:
-    ${vectorSearchString}
+    ${JSON.stringify(vectorSearch)}
   
     Question: """
     ${currentMessageContent}
@@ -54,7 +51,7 @@ export async function POST(req: Request) {
     const { stream, handlers } = LangChainStream();
   
     const llm = new ChatOpenAI({
-      modelName: "gpt-4-1106-preview",
+      modelName: "gpt-3.5-turbo-1106",
       streaming: true,
     });
   

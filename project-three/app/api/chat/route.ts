@@ -2,7 +2,7 @@ import { StreamingTextResponse, LangChainStream, Message } from 'ai';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { AIMessage, HumanMessage } from 'langchain/schema';
 
-export const runtime = 'edge';
+//export const runtime = 'edge';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -18,6 +18,8 @@ export async function POST(req: Request) {
       },
       body: currentMessageContent,
     }).then((res) => res.json());
+
+    //console.log('vector search', vectorSearch[0])
     //const text = await response.text();
 
     //try to parse the repsonse as JSON

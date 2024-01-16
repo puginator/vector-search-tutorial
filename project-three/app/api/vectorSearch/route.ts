@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         embeddingKey: "embedding",
       }
     );
-
+      
     const retriever = vectorStore.asRetriever({
       searchType: "mmr",
       searchKwargs: {
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     });
 
     const retrieverOutput = await retriever.getRelevantDocuments(question);
-
+    //console.log('retriever output', retrieverOutput)
     // Return a response with JSON data
     //return Response.json(retrieverOutput)
     return new Response(JSON.stringify(retrieverOutput), {

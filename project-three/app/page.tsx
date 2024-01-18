@@ -6,7 +6,7 @@ import {useEffect, useRef} from "react";
 
 export default function Chat() {
   const {messages, input, handleInputChange, handleSubmit} = useChat();
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({behavior: "smooth"});

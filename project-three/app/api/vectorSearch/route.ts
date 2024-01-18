@@ -1,6 +1,6 @@
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { MongoDBAtlasVectorSearch } from "langchain/vectorstores/mongodb_atlas";
-import mongoClientPromise from '@/app/lib/mongodb';
+import mongoClientPromise from '../../lib/mongodb';
 
 export async function POST(req: Request) {
   const client = await mongoClientPromise;

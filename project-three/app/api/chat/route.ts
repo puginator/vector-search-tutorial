@@ -29,17 +29,17 @@ export async function POST(req: Request) {
     // });
     // const vectorSearchJson = JSON.parse(vectorSearch);
   
-    // const vectorSearchString = vectorSearch
-    //   .map((v: any) => v.pageContent)
-    //   .join("\n\n")
-    //   .replace(/\n/g, " ");
+    const vectorSearchString = vectorSearch
+      .map((v: any) => v.pageContent)
+      .join("\n\n")
+      .replace(/\n/g, " ");
   
   
-    // console.log('vector string', vectorSearchString);
+    console.log('vector string', vectorSearchString);
     const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
     
     Context sections:
-    ${JSON.stringify(vectorSearch)}
+    ${JSON.stringify(vectorSearchString)}
   
     Question: """
     ${currentMessageContent}
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const { stream, handlers } = LangChainStream();
   
     const llm = new ChatOpenAI({
-      modelName: "gpt-3.5-turbo-1106",
+      modelName: "gpt-4-1106-preview",
       streaming: true,
     });
   

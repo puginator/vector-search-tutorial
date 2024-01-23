@@ -5,7 +5,8 @@ import { AIMessage, HumanMessage } from 'langchain/schema';
 export const runtime = 'edge';
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages, prompt } = await req.json();
+  console.log('messages', prompt);
   const currentMessageContent = messages[messages.length - 1].content;
 
   const apiUrl = process.env.REACT_API_URL as string;
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
       .replace(/\n/g, " ");
   
   
-    console.log('vector string', vectorSearchString);
+    //console.log('vector string', vectorSearchString);
     const TEMPLATE = `You are a very enthusiastic Hounder representative who loves to help people learn about all things Hounder! Given the following sections from the Hounder documentation, answer the questions as if you are Hounder using only that information, outputted in PDF. Please provide a detailed technical approach the questions in your response. If you are unsure and the answer is not written in the documentation, say "Sorry, I don't know how to help with that." 
     
     Context sections:

@@ -31,12 +31,6 @@ export default function Chat() {
   return (
     <div className="mx-auto max-w-md">
       <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
-        <select value={selectedPrompt} onChange={handlePromptChange}>
-          <option value="default">Default</option>
-          <option value="prompt1">Prompt 1</option>
-          <option value="prompt2">Prompt 2</option>
-          {/* Add more options as needed */}
-        </select>
         {messages.length > 0
           ? messages.map((m) => (
               <div
@@ -52,6 +46,21 @@ export default function Chat() {
         <div ref={messagesEndRef} />
       </div>
       <form onSubmit={handleSubmit}>
+        <label>
+        <div className="text-[#219ecc] mb-2">Prompt</div>
+        <select
+          className=" max-w-md  border border-[#219ecc] rounded mb-8 shadow-xl p-2 focus-within:outline-none focus:outline-none focus:ring-2 focus:ring-[#219ecc] focus:border-transparent"
+          value={selectedPrompt}
+          onChange={handlePromptChange}>
+          <option value="original">Original</option>
+          <option value="blog">Blog</option>
+          <option value="technical">Technical</option>
+          <option value="fun">Fun</option>
+          <option value="general">General</option>
+
+          {/* Add more options as needed */}
+        </select>
+        </label>
         <input
           className=" w-full max-w-md  border border-[#219ecc] rounded mb-8 shadow-xl p-2 focus-within:outline-none focus:outline-none focus:ring-2 focus:ring-[#219ecc] focus:border-transparent"
           value={input}

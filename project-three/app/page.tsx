@@ -14,7 +14,7 @@ export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
 
-  const handlePromptChange = (event) => {
+  const handlePromptChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPrompt(event.target.value);
   };
 
